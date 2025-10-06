@@ -13,31 +13,52 @@ namespace API_Tarefas.Repositorios
             _dbcontex = apitarefasDbContex;
         }
 
-        async Task<UsuarioModel> IUsuarioRepositorio.BuscarID(int id)
+        public async Task<UsuarioModel> BuscarID(int id)
         {
             return await _dbcontex.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        Task<List<UsuarioModel>> IUsuarioRepositorio.TodosUsuarios()
+        public async Task<List<UsuarioModel>> TodosUsuarios()
         {
-            throw new NotImplementedException();
+            return await _dbcontex.Usuarios.ToListAsync();
         }
 
-        Task<UsuarioModel> IUsuarioRepositorio.Adicionar(UsuarioModel usuario)
+        public async Task<UsuarioModel> Adicionar(UsuarioModel usuario)
         {
-            throw new NotImplementedException();
+            await _dbcontex.Usuarios.AddAsync(usuario);
+            await _dbcontex.SaveChangesAsync();
+            return usuario;
         }
 
-        Task<bool> IUsuarioRepositorio.Apagar(int id)
+        public async Task<UsuarioModel> Atualizar(UsuarioModel usuario, int id)
         {
-            throw new NotImplementedException();
+            UsuarioModel usuarioID = await BuscarID(id);
+
+            if (usuarioID == null)
+            {
+                throw new Exception($"Usuário {id} não foi encontrado no banco de dados");
+            }
+
+            usuarioID.Nome = usuario.Nome;
+            usuarioID.Email = usuario.Email;
+
+            _dbcontex.Usuarios.Update(usuarioID);
+            await _dbcontex.SaveChangesAsync();
+            return usuarioID;
         }
 
-        Task<UsuarioModel> IUsuarioRepositorio.Atualizar(UsuarioModel usuario, int id)
+        public async Task<bool> Apagar(int id)
         {
-            throw new NotImplementedException();
-        }
+            UsuarioModel usuarioID = await BuscarID(id);
 
-        
+            if (usuarioID == null)
+            {
+                throw new Exception($"Usuário {id} não foi encontrado no banco de dados");
+            }
+
+            _dbcontex.Usuarios.Remove(usuarioID);
+            await _dbcontex.SaveChangesAsync();
+            return true ;
+        }
     }
 }
