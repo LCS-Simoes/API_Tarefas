@@ -20,7 +20,7 @@ namespace API_Tarefas
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<APITarefasDbContex>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DataBase")));
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
