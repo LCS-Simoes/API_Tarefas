@@ -11,7 +11,7 @@ Este projeto foi desenvolvido para **fins de aprendizado**, seguindo o conteúdo
 
 ### 🔹 Gerenciamento de Tarefas (`/api/tarefas`)
 - **Criação de Tarefas:** Adicione novas tarefas com título, descrição e ID de usuário associado.  
-- **Listagem de Tarefas:** Recupere todas as tarefas ou filtre por usuário.  
+- **Listagem de Tarefas:** Recupere todas as tarefas ou filtre por ID.  
 - **Atualização de Status:** Modifique o status da tarefa (ex: de *Pendente* para *Concluída*).  
 
 ### 🔹 Gerenciamento de Usuários (`/api/usuarios`)
