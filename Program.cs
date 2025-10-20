@@ -1,8 +1,12 @@
 
 using API_Tarefas.Data;
+using API_Tarefas.Integração;
+using API_Tarefas.Integração.Interfaces;
+using API_Tarefas.Integração.Refit;
 using API_Tarefas.Repositorios;
 using API_Tarefas.Repositorios.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Refit;
 
 namespace API_Tarefas
 {
@@ -23,7 +27,12 @@ namespace API_Tarefas
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            builder.Services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();    
+            builder.Services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
+            builder.Services.AddScoped<IViaCepIntegracao, ViaCepIntegracao>();
+            builder.Services.AddRefitClient<IViaCepIntegracaoRefit>().ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri("https://viacep.com.br");
+            });
 
             var app = builder.Build();
 
