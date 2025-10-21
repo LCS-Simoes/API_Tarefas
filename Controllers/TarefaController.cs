@@ -1,10 +1,12 @@
 ﻿using API_Tarefas.Models;
 using API_Tarefas.Repositorios.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Tarefas.Controllers
 {
+    [Authorize] // Quando quiser proteger todas as rotas
     [Route("api/[controller]")]
     [ApiController]
     public class TarefaController : ControllerBase
