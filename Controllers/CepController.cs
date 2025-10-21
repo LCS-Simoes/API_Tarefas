@@ -1,10 +1,11 @@
 ﻿using API_Tarefas.Integração.Interfaces;
 using API_Tarefas.Integração.Response;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Tarefas.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CepController : ControllerBase
